@@ -215,7 +215,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">&times;</button>
                   </div>
                   <div class="modal-body">
-                        <form method="post" action="hello">
+                        <form method="post" id="formNewsLetter" action="{{ route('store.newsletter') }}">
                             @csrf
                             <div class="row-md-12">
                                 <label>Name</label>
@@ -226,14 +226,17 @@
                                 <input type="email" name="email" placeholder="Email"  class="form-control"/>
                             </div>
                             <div class="row-md-12">
-                                <label>Interests</label>
-                                input
+                                <label>Contact <sup>Optional</sup></label>
+                                <input type="number" class="form-control" name="contact"/>
+                            </div>
+                            <div class="col-md-12">
+                                <button type="submit">Submit</button>
                             </div>
                         </form>
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary"> Login </button>
+                    <button type="button" class="btn btn-primary"> Register </button>
                   </div>
                 </div>
               </div>
@@ -248,6 +251,31 @@
     <script>
         $(document).ready(function(){
              $("#newsLetter").modal("show");
+        })
+
+        $("#formNewsLetter").submit(function(e){
+            e.preventDefault()
+            formData = $(this).serialize()
+            $.ajax({
+                url : $(this).attr("action"),
+                method : "post",
+                data : {
+                    "_token" : $("meta[name='csrf_token']").attr("content"),
+                    "formData" : formData
+                },
+                success:function(response){
+                    if(response.status == "200"){
+                        console.log(response.message)
+                        toastr.success(`response.message`)
+                        $("#newsLetter").modal("hide")
+                        alert(response.message)
+                    }else{
+                        console.log(response.status,response.message)
+                    }
+                },error:function(error){
+                    console.log(error);
+                }
+            });
         })
     </script>
 @endif

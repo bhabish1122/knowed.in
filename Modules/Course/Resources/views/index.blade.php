@@ -210,6 +210,13 @@
                                                                         class="fa-solid fa-pen-to-square"></i></span>
                                                                 {{ ___('common.edit') }}</a>
                                                         </li>
+                                                        <li>
+                                                            <a class="dropdown-item"
+                                                                href="{{ route('job.placement',[$course->id]) }}"><span
+                                                                    class="icon mr-12"><i
+                                                                        class="fa-solid fa-pen-to-square"></i></span>
+                                                                {{ ___('common.Add Job Placement') }}</a>
+                                                        </li>
                                                     @endif
                                                     @if (hasPermission('course_update'))
                                                         <li>

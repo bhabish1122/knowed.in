@@ -39,7 +39,7 @@ Route::prefix('admin')->middleware(['auth.routes'])->group(function () {
     // End Course Category Routes
 
     // Start Course Routes
-    Route::prefix('course')->group(function () {
+    Route::prefix('course')->group(function () {    
         Route::get('/', 'CourseController@index')->name('course.index')->middleware('PermissionCheck:course_read');
         Route::get('/create', 'CourseController@create')->name('course.create')->middleware('PermissionCheck:course_create');
         Route::post('/store', 'CourseController@store')->name('course.store')->middleware('PermissionCheck:course_store');
@@ -47,6 +47,11 @@ Route::prefix('admin')->middleware(['auth.routes'])->group(function () {
         Route::get('/edit/{id}', 'CourseController@edit')->name('course.edit')->middleware('PermissionCheck:course_update');
         Route::get('content/{id}/{type}', 'CourseController@addContent')->name('course.addContent')->middleware('PermissionCheck:course_update');
         // course update feature wise
+
+        //job placement
+        Route::get("job/placement/{id}","CourseController@jobindex")->name("job.placement");
+        Route::post("job/placement/store","CourseController@jobstore")->name("job.placement.store");
+
         // start course assignment create
         Route::prefix('assignment')->group(function () {
             Route::get('list/{id}', 'AssignmentController@index')->name('course.assignment.index')->middleware('PermissionCheck:course_assignment_list');

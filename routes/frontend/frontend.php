@@ -12,6 +12,7 @@ use App\Http\Controllers\Frontend\PageController;
 use App\Http\Controllers\Frontend\PaymentController;
 use App\Http\Controllers\Frontend\SelectController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\NewsLetterController;
 
 // start sign in
 
@@ -115,3 +116,6 @@ Route::controller(HomeController::class)->prefix('home/ajax')->group(function ()
 /**
  * ::::::::::::::  Ajax Routes End ::::::::::::::
  */
+
+
+ Route::post("store/newletter",[NewsLetterController::class,"store"])->name("store.newsletter");

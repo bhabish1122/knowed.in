@@ -3,6 +3,7 @@
 namespace Modules\Course\Http\Controllers;
 
 use App\Interfaces\LanguageInterface;
+use App\Models\JobPlacement;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -162,5 +163,27 @@ class CourseController extends Controller
             return redirect()->back()->with('danger', ___('alert.something_went_wrong_please_try_again'));
         }
 
+    }
+
+    public function jobindex($id){
+        $jobs = JobPlacement::where("course_id",$id)->get();
+        return view("course::jobplacement")->with([
+            "course_id" => $id ,
+            "jobs" => $jobs
+        ]);
+    }
+
+    public function jobStore(Request $request){
+        $request->validate([
+            "job_name" => "required",
+            "course_id" => "required"
+        ]);
+        JobPlacement::create([
+            "job_name" => $request->job_name,
+            "course_id" => $request->course_id
+        ]);
+        return redirect()->back()->with([
+            "success" => "Job Created Successfully"
+        ]);
     }
 }
