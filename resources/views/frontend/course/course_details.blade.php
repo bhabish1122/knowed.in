@@ -128,6 +128,7 @@
                                     <span>{{ ___('frontend.Curriculum') }}</span>
                                 </button>
                             </li>
+                            
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="Instructor-tab" data-bs-toggle="tab"
                                     data-bs-target="#Instructor" type="button" role="tab"
@@ -136,6 +137,7 @@
                                     <span>{{ ___('frontend.Instructor') }}</span>
                                 </button>
                             </li>
+
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="Review-tab" data-bs-toggle="tab" data-bs-target="#Review"
                                     type="button" role="tab" aria-controls="Review" aria-selected="false">
@@ -143,6 +145,16 @@
                                     <span>{{ ___('frontend.Review') }}</span>
                                 </button>
                             </li>
+
+                            {{-- Jobplacement --}}
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="Jobplacement-tab" data-bs-toggle="tab" data-bs-target="#Jobplacement"
+                                    type="button" role="tab" aria-controls="Jobplacement" aria-selected="false">
+                                    <i class="ri-user-2-line"></i>
+                                    <span>{{ ___('frontend.Jobplacement') }}</span>
+                                </button>
+                            </li>
+
                         </ul>
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="Overview" role="tabpanel"
@@ -224,7 +236,6 @@
                                     <?= $data['profile'] ?>
                                 </div>
                                 <!--End-of course tab  -->
-
                             </div>
 
                             <div class="tab-pane fade" id="Review" role="tabpanel" aria-labelledby="Review-tab">
@@ -235,6 +246,19 @@
                                 </div>
                                 <!-- End-of course tab review  -->
 
+                            </div>
+
+                            <div class="tab-pane" id="Jobplacement" role="tabpanel">
+                                <div class="course-tab-widget">
+                                    <?php 
+                                        $course_id =  $data['course']->id;
+                                        $jobs = \App\Models\JobPlacement::where("course_id",$course_id)->get();
+                                    ?>
+
+                                    @foreach($jobs as $data)
+                                        {!!  "<h1>".$data->job_name."</h1>" !!}
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
                         <!-- COURSE_DETAILS_TABS::END    -->

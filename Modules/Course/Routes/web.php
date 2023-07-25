@@ -49,8 +49,13 @@ Route::prefix('admin')->middleware(['auth.routes'])->group(function () {
         // course update feature wise
 
         //job placement
-        Route::get("job/placement/{id}","CourseController@jobindex")->name("job.placement");
-        Route::post("job/placement/store","CourseController@jobstore")->name("job.placement.store");
+        Route::prefix("job/placement/")->name("job.placement.")->group(function(){
+            Route::get("{id}","CourseController@jobindex")->name("index");
+            Route::get("edit/{id}","CourseController@jobedit")->name("edit");
+            Route::post("update","CourseController@jobupdate")->name("update");
+            Route::post("store","CourseController@jobstore")->name("store");
+            Route::post("delete","CourseController@jobdelete")->name("delete");
+        });
 
         // start course assignment create
         Route::prefix('assignment')->group(function () {

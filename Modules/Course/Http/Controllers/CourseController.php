@@ -165,6 +165,8 @@ class CourseController extends Controller
 
     }
 
+
+    // Job Placements
     public function jobindex($id){
         $jobs = JobPlacement::where("course_id",$id)->get();
         return view("course::jobplacement")->with([
@@ -178,12 +180,49 @@ class CourseController extends Controller
             "job_name" => "required",
             "course_id" => "required"
         ]);
-        JobPlacement::create([
-            "job_name" => $request->job_name,
-            "course_id" => $request->course_id
+        try{
+            JobPlacement::create([
+                "job_name" => $request->job_name,
+                "course_id" => $request->course_id
+            ]);
+            return redirect()->back()->with([
+                "success" => "Job Created Successfully"
+            ]);
+        }catch(\Throwable $th){
+            return $th->getMessage();
+        }
+    }
+    public function jobedit(Request $request,$id){
+        if($request->ajax()){
+            $job = JobPlacement::where("id",$id)->first();
+            return response([
+                "job" => $job
+            ]);
+        }
+    }
+
+    public function jobupdate(Request $request){
+        $request->validate([
+            "job_name" => "required",
+            "course_id" => "required",
+            "job_id" => 'required'
         ]);
-        return redirect()->back()->with([
-            "success" => "Job Created Successfully"
-        ]);
+        try{
+            JobPlacement::where("id",$request->job_id)->update([
+                "job_name" => $request->job_name,
+            ]);
+            return back()->with("success","Update Successful");
+        }catch(\Throwable $th){
+            return $th->getMessage();   
+        }
+    }
+
+    public function jobdelete(Request $request){
+        try{
+           JobPlacement::find($request->id)->delete();
+            return back()->with("success","Delete Successful");
+        }catch(\Throwable $th){
+            return "message_err".$th->getMessage();
+        }  
     }
 }

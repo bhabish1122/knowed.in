@@ -212,7 +212,7 @@
                                                         </li>
                                                         <li>
                                                             <a class="dropdown-item"
-                                                                href="{{ route('job.placement',[$course->id]) }}"><span
+                                                                href="{{ route('job.placement.index',[$course->id]) }}"><span
                                                                     class="icon mr-12"><i
                                                                         class="fa-solid fa-pen-to-square"></i></span>
                                                                 {{ ___('common.Add Job Placement') }}</a>
