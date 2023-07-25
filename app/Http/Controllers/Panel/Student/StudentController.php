@@ -178,4 +178,11 @@ class StudentController extends Controller
             return redirect()->back()->with('danger', ___('alert.something_went_wrong_please_try_again'));
         }
     }
+
+    public function kyc(){
+        $data["title"] = "Student KYC";
+        return view($this->template."kyc.index")->with([
+            "data" => $data['title']
+        ]);
+    }
 }

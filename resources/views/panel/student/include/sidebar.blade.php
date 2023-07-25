@@ -36,6 +36,12 @@
                                 {{ ___('common.My Profile') }}
                             </a>
                         </li>
+                        <li class="list {{ is_active(['student.kyc']) }}">
+                            <a href="{{ route('student.kyc') }}" class="single">
+                                <i class="ri-user-line"></i>
+                                {{ ___('common.My KYC') }}
+                            </a>
+                        </li>
                         <li class="list {{ is_active(['student.course']) }}">
                             <a href="{{ route('student.course') }}" class="single">
                                 <i class="ri-book-open-line"></i>

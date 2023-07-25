@@ -3,11 +3,9 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\Enums\Role;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class StudentMiddleware
+class EmailVerifiedMiddleware
 {
     /**
      * Handle an incoming request.
@@ -18,13 +16,6 @@ class StudentMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if ((auth()->check()) && (auth()->user()->role_id == Role::STUDENT)) {
-            if(auth()->user()->status_id == 5){
-                Auth::logout();
-            }else{
-                return $next($request);
-            }
-        }
-        return redirect()->route('frontend.signIn');
+        return $next($request);
     }
 }

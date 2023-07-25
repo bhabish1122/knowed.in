@@ -247,12 +247,24 @@
 
 @endsection
 @section('scripts')
-@if(auth()->check() == 0)
-    <script>
-        $(document).ready(function(){
-             $("#newsLetter").modal("show");
-        })
+    @if(auth()->check() == 0)
+        @php
+            $showModal = !session()->has('newsletter_modal_shown');
+            if ($showModal) {
+                session(['newsletter_modal_shown' => true]);
+            }
+        @endphp
 
+        @if($showModal)
+            <script>
+                $(document).ready(function(){
+                    $("#newsLetter").modal("show");
+                });
+            </script>
+        @endif
+    @endif
+
+    <script>
         $("#formNewsLetter").submit(function(e){
             e.preventDefault()
             formData = $(this).serialize()
@@ -278,36 +290,34 @@
             });
         })
     </script>
-@endif
-<script>
-    
-    $(document).ready(function() {
-    
-      $("#owl-demo").owlCarousel({
-          items : 4, 
-          itemsDesktop : [1000,5], 
-          itemsDesktopSmall : [900,3],
-          itemsTablet: [600,2], 
-          itemsMobile : false, 
-          autoplay: true,
-          slideSpeed: 1000,
-          margin: 20,
-          responsive: {
-              0:{
-                  items: 1
-              },
-              500:{
-                  items:2
-              },
-              728:{
-                  items:3
-              },
-              1024:{
-                  items: 4
-              }
-          }
-      });
+    <script>
+        $(document).ready(function() {
+        
+        $("#owl-demo").owlCarousel({
+            items : 4, 
+            itemsDesktop : [1000,5], 
+            itemsDesktopSmall : [900,3],
+            itemsTablet: [600,2], 
+            itemsMobile : false, 
+            autoplay: true,
+            slideSpeed: 1000,
+            margin: 20,
+            responsive: {
+                0:{
+                    items: 1
+                },
+                500:{
+                    items:2
+                },
+                728:{
+                    items:3
+                },
+                1024:{
+                    items: 4
+                }
+            }
+        });
 
-});
-</script>
+    });
+    </script>
 @endsection

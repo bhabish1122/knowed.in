@@ -66,7 +66,7 @@ class Kernel extends HttpKernel
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        // 'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'auth.routes' => \App\Http\Middleware\AuthenticateRoutes::class,
         'not.auth.routes' => \App\Http\Middleware\NotAuthenticateRoutes::class,
         'lang' => \App\Http\Middleware\LanguageMiddleware::class,
@@ -76,6 +76,6 @@ class Kernel extends HttpKernel
         'instructor' => \App\Http\Middleware\InstructorMiddleware::class,
         'student' => \App\Http\Middleware\StudentMiddleware::class,
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
-
+        'verified' => \App\Http\Middleware\EmailVerifiedMiddleware::class,
     ];
 }

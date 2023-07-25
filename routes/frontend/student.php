@@ -23,6 +23,7 @@ Route::prefix('student')->middleware(['student', 'auth', 'verified'])->group(fun
 
         Route::get('/dashboard', 'dashboard')->name('student.dashboard');
         Route::get('/profile', 'profile')->name('student.profile');
+        Route::get('student/kyc',"kyc")->name("student.kyc");
 
         // start  course learn
         Route::get('courses', 'courses')->name('student.course'); // student course
