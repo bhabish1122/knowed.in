@@ -229,8 +229,8 @@
                                 <label>Contact <sup>Optional</sup></label>
                                 <input type="number" class="form-control" name="contact"/>
                             </div>
-                            <div class="col-md-12">
-                                <button type="submit">Submit</button>
+                            <div class="col-md-12 mt-3">
+                                <button class="btn btn-primary" type="submit">Submit</button>
                             </div>
                         </form>
                   </div>

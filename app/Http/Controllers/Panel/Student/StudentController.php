@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Panel\Student;
 
 use App\Http\Controllers\Controller;
+use App\Models\KYCModel;
 use App\Models\User;
 use App\Traits\ApiReturnFormatTrait;
 use App\Traits\CommonHelperTrait;
+use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Course\Interfaces\BookmarkInterface;
@@ -13,6 +15,7 @@ use Modules\Order\Interfaces\EnrollInterface;
 use Modules\Order\Interfaces\NoteInterface;
 use Modules\Order\Repositories\EnrollRepository;
 use Modules\Student\Interfaces\StudentInterface;
+use Throwable;
 
 class StudentController extends Controller
 {
@@ -181,8 +184,54 @@ class StudentController extends Controller
 
     public function kyc(){
         $data["title"] = "Student KYC";
-        return view($this->template."kyc.index")->with([
-            "data" => $data['title']
+        $mykyc = KYCModel::where("user_id",Auth::user()->id)->first();
+        return view($this->template.".kyc.index",compact("data","mykyc"));
+    }
+
+    public function kycstore(Request $request){
+        $request->validate([
+            "aadhar_front" => 'required|mimes:jpg,pdf,jpeg,png,raw',
+            "aadhar_back" => 'required|mimes:jpg,pdf,jpeg,png,raw',
+            "pan_front" => 'required|mimes:jpg,pdf,jpeg,png,raw',
+            "pan_back" => 'required|mimes:jpg,pdf,jpeg,png,raw',
+            "driving_license_front" => 'required|mimes:jpg,pdf,jpeg,png,raw',
+            "driving_license_back" => 'required|mimes:jpg,pdf,jpeg,png,raw',
         ]);
+        $user_id = Auth::user()->id;
+        try{
+            DB::beginTransaction();
+
+            $aadhar_front = "IMG-".date('YmdHis').rand(0,9999).".".$request->file('aadhar_front')->getClientOriginalExtension();
+            $aadhar_back = "IMG-".date('YmdHis').rand(0,9999).".".$request->file('aadhar_back')->getClientOriginalExtension();
+            $pan_front = "IMG-".date('YmdHis').rand(0,9999).".".$request->file('pan_front')->getClientOriginalExtension();
+            $pan_back = "IMG-".date('YmdHis').rand(0,9999).".".$request->file('pan_back')->getClientOriginalExtension();
+            $driving_license_front = "IMG-".date('YmdHis').rand(0,9999).".".$request->file('driving_license_front')->getClientOriginalExtension();
+            $driving_license_back = "IMG-".date('YmdHis').rand(0,9999).".".$request->file('driving_license_back')->getClientOriginalExtension();
+
+
+            KYCModel::createOrUpdate([
+                "user_id" => $user_id,
+            ],[
+                "user_id" => $user_id,
+                "aadhar_front" => $aadhar_front,
+                "aadhar_back" => $aadhar_back,
+                "pan_front" => $pan_front,
+                "pan_back" => $pan_back,
+                "driving_license_front" => $driving_license_front,
+                "driving_license_back" => $driving_license_back
+            ]);
+            $request->file('aadhar_front')->storeAs('public/uploads/kyc',$aadhar_front);
+            $request->file('aadhar_back')->storeAs('public/uploads/kyc',$aadhar_back);
+            $request->file('pan_front')->storeAs('public/uploads/kyc',$pan_front);
+            $request->file('pan_back')->storeAs('public/uploads/kyc',$pan_back);
+            $request->file('driving_license_front')->storeAs('public/uploads/kyc',$driving_license_front);
+            $request->file('driving_license_back')->storeAs('public/uploads/kyc',$driving_license_back);
+            DB::commit();
+            return back()->with("success","KYC creation success");
+
+        }catch(Throwable $th){
+            DB::rollBack();
+            return $th->getMessage();
+        }
     }
 }

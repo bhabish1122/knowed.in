@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\KYCModel;
 use App\Models\Role;
 use App\Models\Status;
 use App\Models\Upload;
@@ -129,5 +130,9 @@ class User extends Authenticatable implements MustVerifyEmail
     public function zoomSetting()
     {
         return $this->hasOne(ZoomSetting::class, 'user_id', 'id');
+    }
+
+    public function kyc(){
+        return $this->hasOne(KYCModel::class,"user_id","id");
     }
 }
