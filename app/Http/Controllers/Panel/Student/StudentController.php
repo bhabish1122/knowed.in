@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Panel\Student;
 use App\Http\Controllers\Controller;
 use App\Models\KYCModel;
 use App\Models\User;
+use App\Models\VideoProfileModel;
 use App\Traits\ApiReturnFormatTrait;
 use App\Traits\CommonHelperTrait;
 use DB;
@@ -234,4 +235,25 @@ class StudentController extends Controller
             return $th->getMessage();
         }
     }
+
+    public function videoprofile(){
+        $data["title"] = "Video Profile";
+        $data['user_id'] = Auth::user()->id;
+        $data['videos'] = VideoProfileModel::where("user_id", $data['user_id'])
+                                            ->orderBy('id', 'desc') 
+                                            ->limit(20)
+                                            ->get();
+        return view($this->template.".videoprofile.index",compact("data"));
+    }
+    public function videostore(Request $request){
+        $request->validate([
+            "video" => "required"
+        ]) ;
+        
+        VideoProfileModel::create([
+            "video" => $request->file("video"),
+            "remarks" => $request->remarks,
+            "user_id" => Auth::user()->id
+        ]);
+    } 
 }

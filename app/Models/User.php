@@ -7,6 +7,7 @@ use App\Models\Role;
 use App\Models\Status;
 use App\Models\Upload;
 use App\Models\Designation;
+use Illuminate\Queue\Events\JobRetryRequested;
 use Laravel\Sanctum\HasApiTokens;
 use Modules\Student\Entities\Student;
 use Modules\Course\Entities\Assignment;
@@ -134,5 +135,8 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function kyc(){
         return $this->hasOne(KYCModel::class,"user_id","id");
+    }
+    public function videoprofile(){
+        return $this->hasOne(VideoProfileModel::class,"user_id","id");
     }
 }

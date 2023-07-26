@@ -42,6 +42,12 @@
                                 {{ ___('common.My KYC') }}
                             </a>
                         </li>
+                        <li class="list {{ is_active(['student.video.profile']) }}">
+                            <a href="{{ route('student.video.profile') }}" class="single">
+                                <i class="ri-user-line"></i>
+                                {{ ___('common.Video Profile') }}
+                            </a>
+                        </li>
                         <li class="list {{ is_active(['student.course']) }}">
                             <a href="{{ route('student.course') }}" class="single">
                                 <i class="ri-book-open-line"></i>
