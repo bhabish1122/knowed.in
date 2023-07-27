@@ -44,7 +44,7 @@
                         </li>
                         <li class="list {{ is_active(['student.video.profile']) }}">
                             <a href="{{ route('student.video.profile') }}" class="single">
-                                <i class="ri-user-line"></i>
+                                <i class="ri-gallery-field"></i>
                                 {{ ___('common.Video Profile') }}
                             </a>
                         </li>

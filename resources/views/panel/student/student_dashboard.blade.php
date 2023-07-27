@@ -1,5 +1,4 @@
-@extends('panel.student.layouts.m
-aster')
+@extends('panel.student.layouts.master')
 @section('title', @$data['title'])
 @section('content')
     <!-- Banner S t a r t-->

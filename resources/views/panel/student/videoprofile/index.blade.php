@@ -21,7 +21,27 @@
 
     <section>
         <div class="row">
-            
+            @forelse($data['videos'] as $video)
+            <div class="col-md-12">
+                <label for="">{{ $video->remarks }}</label>
+                <div class="col-md-12">
+                    <video src="{{ url('storage/uploads/video_profile/'.$video->video) }}"
+                        width="640"
+                        height="360"
+                        controls
+                        autoplay
+                        loop
+                        muted
+                        poster="{{ asset('storage/uploads/video_profile/thumbnails/'.$video->thumbnail) }}"
+                        preload="auto">
+                    </video>
+                </div>
+            </div>
+            @empty
+            <div class="col-md-12">
+                EMPTY
+            </div>
+            @endforelse
         </div>
     </section>
 @endsection

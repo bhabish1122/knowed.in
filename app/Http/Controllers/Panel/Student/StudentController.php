@@ -245,15 +245,26 @@ class StudentController extends Controller
                                             ->get();
         return view($this->template.".videoprofile.index",compact("data"));
     }
-    public function videostore(Request $request){
+    public function videostore(Request $request)
+    {
         $request->validate([
-            "video" => "required"
-        ]) ;
-        
-        VideoProfileModel::create([
-            "video" => $request->file("video"),
-            "remarks" => $request->remarks,
-            "user_id" => Auth::user()->id
+            'video' => 'required|mimes:mp4,mov,avi,wmv|max:50000', // Max size in kilobytes (50MB)
         ]);
-    } 
+    
+        try{
+            $outputFileName = "VID-" . date("ymdHis") . rand(0, 99999) . ".mp4";
+            $inputFilePath = $request->file('video')->storeAs('public/uploads/video_profile/',$outputFileName); // Save the video to a temporary location        
+            $create = VideoProfileModel::create([
+                "video" => $outputFileName,
+                "remarks" => $request->remarks,
+                "user_id" => Auth::user()->id
+            ]);
+
+            return back()->with("success","Video Upload Successful");
+
+        }catch(Throwable $e){
+            return $e->getMessage();
+        }
+        
+    }
 }
