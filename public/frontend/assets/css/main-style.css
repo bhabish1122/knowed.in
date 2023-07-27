@@ -33892,3 +33892,272 @@ body.rtl .chatSend-wrapper .sendMessage .input {
     padding-left: 101px;
     padding-right: 18px !important;
 }
+
+/*Working Process*/
+
+
+
+.text-h4,
+h4 {
+  font-size: 32px;
+  line-height: 40px;
+}
+
+.ft-wt-5 {
+  font-weight: 500 !important;
+}
+
+.text-gray-400 {
+  color: #9199a3 !important;
+}
+
+.text-primary-500 {
+  color: #0a65cc !important;
+}
+
+.has-title-shape,
+.position-parent {
+  position: relative;
+  z-index: 1;
+}
+
+.has-title-shape img {
+  position: absolute;
+  left: -8px;
+  bottom: 0;
+  z-index: -1;
+}
+
+img {
+  max-width: 100%;
+}
+
+.tw-bg-\[\#F1F2F4\] {
+  background-color: rgb(241 242 244 / var(--tw-bg-opacity));
+}
+.rt-spacer-50 {
+  height: 50px;
+}
+.rt-spacer-100 {
+  height: 100px;
+}
+.has-arrow {
+  position: absolute;
+  right: -33%;
+  z-index: 5;
+  top: 0;
+}
+.has-arrow.middle {
+  top: 33%;
+  transform: translateY(-33%);
+}
+
+.body-font-2 {
+  font-size: 18px;
+  line-height: 28px;
+}
+
+.rt-single-icon-box.working-progress {
+  background: 0 0;
+  border-radius: 12px;
+  padding: 24px;
+  z-index: 0;
+}
+.rt-single-icon-box.icon-center {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+element.style {
+}
+.rt-single-icon-box.working-progress {
+  background: 0 0;
+  border-radius: 12px;
+  padding: 24px;
+  z-index: 0;
+}
+.rt-single-icon-box.icon-center {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.rt-single-icon-box.working-progress {
+  background: transparent;
+  border-radius: 12px;
+  padding: 24px;
+  z-index: 0;
+}
+.rt-single-icon-box {
+  display: flex;
+  align-items: center;
+  transition: all 0.24s ease-in-out;
+}
+.rt-single-icon-box .icon-thumb {
+  flex-shrink: 0 !important;
+}
+.rt-mb-24 {
+  margin-bottom: 24px;
+}
+.rt-single-icon-box.working-progress .icon-72 {
+  color: var(--primary-500);
+  background-color: #fff;
+  border-radius: 50%;
+  z-index: 0;
+}
+.icon-72 {
+  width: 72px;
+  height: 72px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: 4px;
+  transition: all 0.24s ease-in-out;
+  background-color: transparent;
+  font-size: 40px;
+}
+.rt-single-icon-box .iconbox-content {
+  flex-grow: 1 !important;
+}
+
+@media (max-width: 1024px) {
+  .has-arrow {
+    display: none;
+  }
+}
+
+/*Working Process End*/
+
+
+/* we are hiring section */
+
+.section-box {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  margin-left: calc(-50vw + 50% - 10px);
+  position: relative;
+  width: 100vw;
+}
+.box-we-hiring {
+  border: 1px solid var(--border-color-2);
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+    rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  display: flex;
+  margin: auto;
+  max-width: 85%;
+  overflow: hidden;
+  padding: 40px 250px 40px 190px;
+  position: relative;
+}
+
+.box-we-hiring .box-we-hiring-before {
+  background-size: cover !important;
+  bottom: 15px;
+  content: "";
+  height: 120px;
+  left: 15px;
+  position: absolute;
+  width: 150px;
+  background: url(https://jobbox.archielite.com/storage/pages/bg-left-hiring.png)
+    no-repeat 0 0;
+}
+
+.box-we-hiring .text-we-are {
+  color: #656f78;
+  display: block;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  line-height: 20px;
+  text-transform: uppercase;
+}
+
+.box-we-hiring .text-hiring {
+  color: #05264e;
+  font-size: 42px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  line-height: 51px;
+  text-transform: uppercase;
+}
+.text-1 {
+  z-index: 3;
+}
+
+.box-we-hiring .text-2 {
+  color: #526489;
+  font-size: 18px !important;
+  font-weight: 500;
+  line-height: 23px;
+  padding: 29px 20px 0;
+}
+.box-we-hiring .text-3 {
+  padding: 34px 0 0 20px !important;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  margin: 0;
+  padding: 0;
+  vertical-align: baseline;
+}
+.btn-apply-icon {
+  background-image: url(https://jobbox.archielite.com/themes/jobbox/imgs/template/icons/apply.svg);
+  background-position: 15px 11px !important;
+  background-repeat: no-repeat;
+  padding-left: 40px !important;
+}
+.btn-apply {
+  background-color: #3c65f5 !important;
+  border-radius: 4px !important;
+  color: #fff !important;
+  padding: 12px 20px;
+  white-space: nowrap !important;
+}
+.box-we-hiring .box-we-hiring-after {
+  background-size: cover;
+  bottom: 15px;
+  content: "";
+  height: 120px;
+  position: absolute;
+  right: -5px;
+  width: 250px;
+  background: url(https://jobbox.archielite.com/storage/pages/bg-right-hiring.png)
+    no-repeat 0 0;
+}
+
+.color-brand-1 {
+  color: #05264e !important;
+}
+
+@media (max-width: 1199.98px) {
+  .box-we-hiring {
+    max-width: 100%;
+    padding: 20px 10px 20px 120px;
+  }
+}
+@media (max-width: 1000px) {
+  .box-we-hiring-before {
+    display: none;
+  }
+  .box-we-hiring-after {
+    display: none;
+  }
+}
+
+@media (max-width: 770px) {
+  .section-box {
+    display: none;
+  }
+}
+
+/* we are hiring section  end*/
+
+
+
+
+
