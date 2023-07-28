@@ -191,10 +191,13 @@ class StudentController extends Controller
 
     public function kycstore(Request $request){
         $request->validate([
+            "aadhar_number" => "required|unique:kyc",
             "aadhar_front" => 'required|mimes:jpg,pdf,jpeg,png,raw',
             "aadhar_back" => 'required|mimes:jpg,pdf,jpeg,png,raw',
+            "pan_number" => "required|unique:kyc",
             "pan_front" => 'required|mimes:jpg,pdf,jpeg,png,raw',
             "pan_back" => 'required|mimes:jpg,pdf,jpeg,png,raw',
+            "driving_license_number" => "required|unique:kyc",
             "driving_license_front" => 'required|mimes:jpg,pdf,jpeg,png,raw',
             "driving_license_back" => 'required|mimes:jpg,pdf,jpeg,png,raw',
         ]);
@@ -209,18 +212,38 @@ class StudentController extends Controller
             $driving_license_front = "IMG-".date('YmdHis').rand(0,9999).".".$request->file('driving_license_front')->getClientOriginalExtension();
             $driving_license_back = "IMG-".date('YmdHis').rand(0,9999).".".$request->file('driving_license_back')->getClientOriginalExtension();
 
+            $existingKycs = KYCModel::where("user_id",$user_id)->first();
+            if($existingKycs){
+                $path = storage_path("app\public\uploads\kyc");
+                $existingAadharFront = join(DIRECTORY_SEPARATOR, [$path, $existingKycs->aadhar_front]);
+                $existingAadharBack = join(DIRECTORY_SEPARATOR, [$path, $existingKycs->aadhar_back]);
+                $existingPanFront = join(DIRECTORY_SEPARATOR, [$path, $existingKycs->pan_front]);
+                $existingPanBack = join(DIRECTORY_SEPARATOR, [$path, $existingKycs->pan_back]);
+                $existingDrivingFront = join(DIRECTORY_SEPARATOR, [$path, $existingKycs->driving_license_front]);
+                $existingDrivingBack = join(DIRECTORY_SEPARATOR, [$path, $existingKycs->driving_license_back]);
+                $this->checkFileExists($existingAadharFront);
+                $this->checkFileExists($existingAadharBack);
+                $this->checkFileExists($existingPanFront);
+                $this->checkFileExists($existingPanBack);
+                $this->checkFileExists($existingDrivingFront);
+                $this->checkFileExists($existingDrivingBack);
+            }
 
-            KYCModel::createOrUpdate([
+            KYCModel::updateOrCreate([
                 "user_id" => $user_id,
             ],[
                 "user_id" => $user_id,
+                "aadhar_number" => $request->aadhar_number,
                 "aadhar_front" => $aadhar_front,
                 "aadhar_back" => $aadhar_back,
+                "pan_number" => $request->pan_number,
                 "pan_front" => $pan_front,
                 "pan_back" => $pan_back,
+                "driving_license_number"=> $request->driving_license_number,
                 "driving_license_front" => $driving_license_front,
                 "driving_license_back" => $driving_license_back
             ]);
+
             $request->file('aadhar_front')->storeAs('public/uploads/kyc',$aadhar_front);
             $request->file('aadhar_back')->storeAs('public/uploads/kyc',$aadhar_back);
             $request->file('pan_front')->storeAs('public/uploads/kyc',$pan_front);
@@ -233,6 +256,17 @@ class StudentController extends Controller
         }catch(Throwable $th){
             DB::rollBack();
             return $th->getMessage();
+        }
+    }
+
+    function checkFileExists($path){
+        if(file_exists($path)){ 
+            unlink($path);
+            return true;
+        }
+        else{
+            DB::rollBack();
+            return throw new \Exception("Something went wrong for {$path}. Reverting all changes ");
         }
     }
 

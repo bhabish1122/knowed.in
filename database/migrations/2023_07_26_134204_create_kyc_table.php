@@ -17,10 +17,13 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger("user_id");
             $table->foreign("user_id")->references("id")->on("users")->onDelete("cascade");
+            $table->string("aadhar_number");
             $table->string("aadhar_front");
             $table->string("aadhar_back");
+            $table->string("pan_number");
             $table->string("pan_front");
             $table->string("pan_back");
+            $table->string("driving_license_number");
             $table->string("driving_license_front");
             $table->string("driving_license_back");
             $table->timestamps();
